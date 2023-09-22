@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <link href="/web/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="main-container">
+            <div class="canvas-container">
+                <canvas id="main-canvas"></canvas>
+            </div>
+            
+            <div id="params">
+                <div id="h1"><b>Interactive Complex Function Viewer</b></div>
+                <div id="t1">Enter a complex expression in <b>z</b>:</div>
+                <input id="function-input" type="text">
+                <div id="btn-container">
+                    <button id="view-btn" class="btn">Reset View</button>
+                    <button id="time-btn" class="btn">Reset Time</button>
+                </div>
+                <br>
+                <div id="t1">
+                    This tool visualizes the conformal map associated with a complex function. 
+                    Try <b>zooming and panning</b> around to explore the beautiful world within these functions. 
+                    The tool is implemented with WebGPU for real-time interactivity. Check it out!
+                </div><br>
+                <div id="t1">
+                    Some maps to try include:<br>
+                </div>
+                <div id="two-column">
+                    <div id="t1">
+                        * <b>1/z</b><br>
+                        * <b>z^2</b><br>
+                        * <b>sqrt(z)&nbsp;</b><br>
+                        * <b>iter(z+z'^i,10)&nbsp;&nbsp;</b>
+                    </div>
+
+                    <div id="t1">
+                        * <b>1/z+z/i</b><br>
+                        * <b>sin(z)</b><br>
+                        * <b>1/sqrt(z)</b><br>
+                        * <b>sqrt(z-z^2)+1/z-z^2</b><br>
+                    </div>
+                </div>
+                <br>
+                <div id="t1">
+                    The scalar parameter <b>t</b> starts at <b>0</b> and increases at a rate of by <b>1/s</b>. 
+                    You can use <b>t</b> to add mesmerizing animation to the complex function.
+                    One may also use <b>iter</b> for iterative complex functions like so: <b>iter(z+z'^2,30)</b>.
+                </div>
+                <br>
+                <div id="t1">
+                    The complete list of supported operations are as follows: +, -, *, /, ^, 
+                    sqrt, log, sin, cos, sinh, cosh, tan, tanh, asin, acos, atan,
+                    gamma, and iter. The constants e and pi are also included. <!--, jacobi, elliptic, bessel, airy, and zeta. -->
+                </div>
+                <div id="fps">FPS: -</div>
+            </div>
+        </div>
+       
+        <script src="bundle.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

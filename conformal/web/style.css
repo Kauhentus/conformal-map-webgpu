@@ -71,3 +71,47 @@ body {
     margin-top: auto;
     margin-bottom: 3rem;
 }
+
+#selector-menu {
+    z-index: 10;
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.selector-button {
+    width: 16rem;
+    height: 6rem;
+    display: flex;
+    font-size: 24pt;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 4px solid white;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    cursor: pointer;
+}
+
+#image-display {
+    z-index: 20;
+    position: absolute;
+    top: 43vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#image-image {
+    display: flex;
+    width: 40rem;
+
+    margin-left: auto;
+    margin-right: auto;
+}

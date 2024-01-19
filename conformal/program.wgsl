@@ -44,9 +44,9 @@ fn get_complex_color(cx: f32, cy: f32) -> vec3f {
         color = vec3f(0.0, 0.0, 0.0);
     }
 
-    if(1 < r && r < 1.1){
-        color = vec3f(1.0, 1.0, 1.0);
-    }
+    // if(1 < r && r < 1.1){
+    //     color = vec3f(1.0, 1.0, 1.0);
+    // }
 
     return color;
 }

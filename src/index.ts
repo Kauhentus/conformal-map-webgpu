@@ -4,7 +4,7 @@ import * as grammar from "./grammar";
 const screenDims = document.body.getBoundingClientRect();
 const screen_w = screenDims.width;
 const screen_h = screenDims.height;
-const screenDimension = [screen_w * 0.75, screen_h];
+const screenDimension = [screen_w, screen_h];
 
 const mainCanvas = document.getElementById('main-canvas') as HTMLCanvasElement;
 mainCanvas.width = screenDimension[0];
@@ -15,7 +15,7 @@ window.addEventListener('resize', () => {
     const screenDims = document.body.getBoundingClientRect();
     const screen_w = screenDims.width;
     const screen_h = screenDims.height;
-    screenDimension[0] = screen_w * 0.75;
+    screenDimension[0] = screen_w;
     screenDimension[1] = screen_h;
 
     mainCanvas.width = screenDimension[0];
@@ -93,6 +93,7 @@ const initialize = async () : Promise<GPU | undefined> => {
 let current = 0;
 let frameCount = 0;
 const compile = async (command: string, config: GPU, id: number) => {
+    console.log(command)
     // initialize gpu
     const {
         adapter: adapter,
@@ -112,7 +113,7 @@ const compile = async (command: string, config: GPU, id: number) => {
         usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
     });
 
-    let res = await fetch('/src/program.wgsl')
+    let res = await fetch('./program.wgsl')
     let text = await res.text();
     console.log(command)
     let code = text.replace('[[EXPR]]', command);
@@ -316,20 +317,44 @@ const parseInput = (s: string) => {
         return expandedResult;
     }
 }
-const functionInput = document.getElementById('function-input') as HTMLInputElement;
-functionInput.value = '1/z';
-if(functionInput){
-    functionInput.addEventListener('input', () => {
-        const rawInput = functionInput.value;
 
-        const result = parseInput(rawInput);
-        current += 1;
-        if(result !== '') compile(result, gpuConfig, current);
-    });
-}
-
+        
 /*
 Favs: 
 iter((z*(t+1))^i+z'^i/(t+1),10) 
-
 */
+
+let fantasyCounter = 0;
+let inputs = [
+    "1/iter(z+z'^(i+sin(t)),10)+1",
+    "iter(z^(i*0.5)+sqrt(z'*(t+1)*i*(-1)),8)",
+    "atan(i+z*(t+0.2))",
+    "z+sin(z*i*t)+cos(z*i*t*2)",
+    "iter(z*sqrt((t+0.5)*i)+z'^(sqrt(1/t+i)),10)",
+    "iter(z*sin(t*i)+z'^i,10)",
+    "z+sin(z*i*t)^(i*t*2)",
+    "sin(i*z-z^(2*t))+tan(1/z-z^2)",
+    "sqrt(z-z^(2*t))+1/z-z^2",
+    "1/iter(z+z'^(t),8)+1",
+    "t/iter(z+z'^(i+tan(t)),4)+1"
+];
+const pushMeButton = document.getElementById('push-me-button') as HTMLButtonElement;
+pushMeButton.addEventListener('click', () => {
+    next();
+});
+
+const next = () => {
+    fantasyCounter += 1;
+    fantasyCounter %= inputs.length;
+
+    const result = parseInput(inputs[fantasyCounter]);
+    current += 1;
+    if(result !== '') compile(result, gpuConfig, current);
+    console.log("RESET")
+}
+setInterval(() => {
+    next();
+}, 10000)
+setTimeout(() => {
+    next();
+}, 1000);
